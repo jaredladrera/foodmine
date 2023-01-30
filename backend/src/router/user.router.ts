@@ -1,8 +1,24 @@
 import { Router } from 'express';
 import { sample_users } from '../data';
 import jwt from 'jsonwebtoken';
+import asynceHandler from 'express-async-handler'
+import { UserModel } from '../models/user.models';
 
 const router = Router();
+
+router.get("/seed", asynceHandler(
+    async (req, res) => {
+        const foodsCount = await UserModel.countDocuments();
+        if(foodsCount > 0) {
+            res.send('Seed is already done');
+            return;
+        }
+
+        // for creating saving data in the datavase
+        await UserModel.create(sample_users);
+        res.send('Seed is done');
+    }
+));
 
 router.post('/login', (req, res) => {
     // const body = req.body;

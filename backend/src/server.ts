@@ -1,7 +1,14 @@
+
+import dotenv from 'dotenv';
+dotenv.config();
+// process.env.MONGO_URI
+
 import express from 'express';
 import cors from 'cors'
 import foodRouter from './router/food.router';
 import userRouter from './router/user.router';
+import { dbConnect } from './configs/database.config';
+dbConnect();
 
 const app = express();
 app.use(express.json());
