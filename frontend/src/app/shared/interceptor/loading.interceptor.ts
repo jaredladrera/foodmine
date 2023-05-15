@@ -17,6 +17,7 @@ export class LoadingInterceptor implements HttpInterceptor {
   constructor(private loadingService: LoadingService) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+    console.log("loading");
     this.loadingService.showLoading();
     pendingRequest = pendingRequest + 1;
 

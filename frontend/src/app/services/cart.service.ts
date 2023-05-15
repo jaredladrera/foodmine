@@ -14,7 +14,7 @@ export class CartService {
 
   addToCart(food: Food): void {
     let cartItem = this.cart.items.find(item => item.food.id === food.id);
-    if(cartItem) 
+    if(cartItem)
       return;
 
     this.cart.items.push(new CartItem(food))
@@ -44,6 +44,10 @@ export class CartService {
     return this.cartSubject.asObservable();
   }
 
+  getCart(): Cart {
+    return this.cartSubject.value;
+  }
+
   private setCartToLocalStorage(): void {
     this.cart.totalPrice = this.cart.items
     .reduce((prevSum, currentItem) => prevSum + currentItem.price, 0);
@@ -60,5 +64,5 @@ export class CartService {
     const cartJson = localStorage.getItem('Cart')
     return cartJson ? JSON.parse(cartJson) : new Cart();
   }
- 
+
 }
